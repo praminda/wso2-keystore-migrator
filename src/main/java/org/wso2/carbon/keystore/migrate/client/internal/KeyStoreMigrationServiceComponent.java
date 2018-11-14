@@ -19,7 +19,6 @@ package org.wso2.carbon.keystore.migrate.client.internal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.service.component.ComponentContext;
-import org.wso2.carbon.core.ServerStartupHandler;
 import org.wso2.carbon.keystore.migrate.client.KeyStoreMigrator;
 import org.wso2.carbon.registry.core.service.RegistryService;
 import org.wso2.carbon.registry.core.service.TenantRegistryLoader;
@@ -27,10 +26,7 @@ import org.wso2.carbon.user.api.UserStoreException;
 import org.wso2.carbon.user.core.service.RealmService;
 
 /**
- * @scr.component name="org.wso2.carbon.apimgt.migration.client" immediate="true"
- * @scr.reference name="server.config.service"
- * interface="org.wso2.carbon.core.ServerStartupHandler" cardinality="1..1"
- * policy="dynamic" bind="setStartupHandler" unbind="unsetStartupHandler"
+ * @scr.component name="org.wso2.carbon.keystore.migrate.client" immediate="true"
  * @scr.reference name="realm.service"
  * interface="org.wso2.carbon.user.core.service.RealmService" cardinality="1..1"
  * policy="dynamic" bind="setRealmService" unbind="unsetRealmService"
@@ -42,9 +38,9 @@ import org.wso2.carbon.user.core.service.RealmService;
  */
 
 @SuppressWarnings("unused")
-public class APIMMigrationServiceComponent {
+public class KeyStoreMigrationServiceComponent {
 
-    private static final Log log = LogFactory.getLog(APIMMigrationServiceComponent.class);
+    private static final Log log = LogFactory.getLog(KeyStoreMigrationServiceComponent.class);
     public static final String MIGRATE_KEY_STORES = "migrateKS";
 
     /**
@@ -145,15 +141,5 @@ public class APIMMigrationServiceComponent {
     protected void unsetTenantRegistryLoader(TenantRegistryLoader tenantRegLoader) {
         log.debug("********Unset Tenant Registry Loader********");
         ServiceHolder.setTenantRegLoader(null);
-    }
-
-    protected void setStartupHandler(ServerStartupHandler configService) {
-        log.debug("********Set Server StartupHandler********");
-        ServiceHolder.setStartupHandler(configService);
-    }
-
-    protected void unsetStartupHandler(ServerStartupHandler configService) {
-        log.debug("********Unset Server StartupHandler********");
-        ServiceHolder.setStartupHandler(null);
     }
 }

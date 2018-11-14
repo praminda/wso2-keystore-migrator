@@ -72,7 +72,7 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
-                <version>${org.apache.felix.budnle.plugin.version}</version>
+                <version>${org.apache.felix.bundle.plugin.version}</version>
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
@@ -81,8 +81,8 @@
                             org.wso2.carbon.keystore.migrate.client.internal
                         </Private-Package>
                         <Import-Package>
-                            org.apache.commons.logging.*; version=${org.wso2.carbon.logging.import.version},
-                            org.wso2.carbon.registry.core.* version=${org.wso2.carbon.registry.core.import.version},
+                            org.apache.commons.logging.*; version=${org.apache.commons.logging.version},
+                            org.wso2.carbon.registry.core.* version=${org.wso2.carbon.registry.core.version},
                             *;resolution:=optional
                         </Import-Package>
                         <DynamicImport-Package>*</DynamicImport-Package>
@@ -119,21 +119,22 @@
             <version>${org.wso2.carbon.core.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.wso2.carbon</groupId>
-            <artifactId>org.wso2.carbon.keystore.mgt</artifactId>
-            <version>2.2.1</version>
+            <groupId>org.wso2.carbon.multitenancy</groupId>
+            <artifactId>org.wso2.carbon.tenant.keystore.mgt</artifactId>
+            <version>${org.wso2.carbon.keystore.mgt.version}</version>
         </dependency>
     </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.apache.felix.src.plugin.version>1.7.2</org.apache.felix.src.plugin.version>
-        <org.apache.felix.budnle.plugin.version>2.5.3</org.apache.felix.budnle.plugin.version>
-        <org.wso2.carbon.core.version>4.2.0</org.wso2.carbon.core.version>
-        <org.wso2.carbon.logging.version>4.2.0</org.wso2.carbon.logging.version>
-        <org.wso2.carbon.logging.import.version>1.0.4</org.wso2.carbon.logging.import.version>
-        <org.wso2.carbon.utils.version>4.2.0</org.wso2.carbon.utils.version>
-        <org.wso2.carbon.registry.core.version>4.2.0</org.wso2.carbon.registry.core.version>
-        <org.wso2.carbon.registry.core.import.version>1.0.1</org.wso2.carbon.registry.core.import.version>
+        <org.apache.felix.bundle.plugin.version>2.5.3</org.apache.felix.bundle.plugin.version>
+        <org.wso2.carbon.core.version>4.4.11</org.wso2.carbon.core.version>
+        <org.wso2.carbon.logging.version>4.4.11</org.wso2.carbon.logging.version>
+        <org.apache.commons.logging.version>1.2</org.apache.commons.logging.version>
+        <org.wso2.carbon.utils.version>4.4.11</org.wso2.carbon.utils.version>
+        <org.wso2.carbon.registry.core.version>4.4.11</org.wso2.carbon.registry.core.version>
+        <org.wso2.carbon.keystore.mgt.version>4.6.1</org.wso2.carbon.keystore.mgt.version>
     </properties>
 </project>
+

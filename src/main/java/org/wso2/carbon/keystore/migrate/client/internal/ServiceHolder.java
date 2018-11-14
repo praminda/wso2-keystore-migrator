@@ -15,7 +15,6 @@
  */
 package org.wso2.carbon.keystore.migrate.client.internal;
 
-import org.wso2.carbon.core.ServerStartupHandler;
 import org.wso2.carbon.registry.core.service.RegistryService;
 import org.wso2.carbon.registry.core.service.TenantRegistryLoader;
 import org.wso2.carbon.user.core.service.RealmService;
@@ -30,7 +29,6 @@ public class ServiceHolder {
 
     //Tenant registry loader which is used to load tenant registry
     private static TenantRegistryLoader tenantRegLoader;
-    private static ServerStartupHandler configurationService;
 
     /**
      * Method to get RegistryService.
@@ -86,7 +84,4 @@ public class ServiceHolder {
         tenantRegLoader = service;
     }
 
-    public static void setStartupHandler(ServerStartupHandler service) {
-        configurationService = service;
-    }
 }
