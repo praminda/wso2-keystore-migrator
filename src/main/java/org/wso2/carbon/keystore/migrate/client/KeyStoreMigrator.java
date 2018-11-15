@@ -18,11 +18,13 @@ package org.wso2.carbon.keystore.migrate.client;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wso2.carbon.context.PrivilegedCarbonContext;
 import org.wso2.carbon.keystore.mgt.KeyStoreGenerator;
 import org.wso2.carbon.keystore.mgt.KeyStoreMgtException;
 import org.wso2.carbon.keystore.mgt.util.RegistryServiceHolder;
 import org.wso2.carbon.keystore.migrate.client.internal.ServiceHolder;
 import org.wso2.carbon.registry.core.exceptions.RegistryException;
+import org.wso2.carbon.registry.core.service.TenantRegistryLoader;
 import org.wso2.carbon.registry.core.session.UserRegistry;
 import org.wso2.carbon.user.api.Tenant;
 import org.wso2.carbon.user.api.UserStoreException;
@@ -45,10 +47,19 @@ public class KeyStoreMigrator {
     public void migrate() throws UserStoreException {
         TenantManager tenantManager = ServiceHolder.getRealmService().getTenantManager();
         List<Tenant> allTenants = new ArrayList(Arrays.asList(tenantManager.getAllTenants()));
+        boolean isTenantFlowStarted = false;
+        String tenantDomain;
+        String ksName;
 
         for (Tenant tenant : allTenants) {
             try {
-                String ksName = getKSNameFromDomainName(tenant.getDomain());
+                tenantDomain = tenant.getDomain();
+                ksName = getKSNameFromDomainName(tenant.getDomain());
+                isTenantFlowStarted = true;
+                PrivilegedCarbonContext.startTenantFlow();
+                PrivilegedCarbonContext.getThreadLocalCarbonContext().setTenantDomain(tenantDomain, true);
+                TenantRegistryLoader tenantRegLoaderl = ServiceHolder.getTenantRegLoader();
+                tenantRegLoaderl.loadTenantRegistry(tenant.getId());
 
                 // can't add new keystores when there are existing ones in the same location
                 // so first we delete the old resources
@@ -71,6 +82,10 @@ public class KeyStoreMigrator {
                 log.error(
                         "****####Error occurred while migrating keystore for tenant: [" + tenant.getId() + ']' + tenant
                                 .getDomain(), e);
+            } finally {
+                if (isTenantFlowStarted) {
+                    PrivilegedCarbonContext.endTenantFlow();
+                }
             }
         }
     }
