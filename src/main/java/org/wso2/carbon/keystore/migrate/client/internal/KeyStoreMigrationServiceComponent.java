@@ -20,24 +20,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.service.component.ComponentContext;
 import org.wso2.carbon.keystore.migrate.client.KeyStoreMigrator;
-import org.wso2.carbon.registry.core.service.RegistryService;
 import org.wso2.carbon.registry.core.service.TenantRegistryLoader;
 import org.wso2.carbon.user.api.UserStoreException;
 import org.wso2.carbon.user.core.service.RealmService;
+import org.wso2.carbon.utils.ConfigurationContextService;
 
 /**
  * @scr.component name="org.wso2.carbon.keystore.migrate.client" immediate="true"
  * @scr.reference name="realm.service"
  * interface="org.wso2.carbon.user.core.service.RealmService" cardinality="1..1"
  * policy="dynamic" bind="setRealmService" unbind="unsetRealmService"
- * @scr.reference name="registry.service"
- * interface="org.wso2.carbon.registry.core.service.RegistryService" cardinality="1..1"
- * policy="dynamic" bind="setRegistryService" unbind="unsetRegistryService"
+ * @scr.reference name="configuration.context.service"
+ * interface="org.wso2.carbon.utils.ConfigurationContextService" cardinality="1..1"
+ * policy="dynamic" bind="setconfigurationContextService" unbind="unsetconfigurationContextService"
  * @scr.reference name="tenant.registryloader" interface="org.wso2.carbon.registry.core.service.TenantRegistryLoader" cardinality="1..1"
  * policy="dynamic" bind="setTenantRegistryLoader" unbind="unsetTenantRegistryLoader"
  */
-
-@SuppressWarnings("unused")
 public class KeyStoreMigrationServiceComponent {
 
     private static final Log log = LogFactory.getLog(KeyStoreMigrationServiceComponent.class);
@@ -80,25 +78,25 @@ public class KeyStoreMigrationServiceComponent {
     /**
      * Method to set registry service.
      *
-     * @param registryService service to get tenant data.
+     * @param configurationContextService service to get tenant data.
      */
-    protected void setRegistryService(RegistryService registryService) {
+    protected void setconfigurationContextService(ConfigurationContextService configurationContextService) {
         if (log.isDebugEnabled()) {
             log.debug("********Setting RegistryService for Key Store migration********");
         }
-        ServiceHolder.setRegistryService(registryService);
+        ServiceHolder.setConfigurationContextService(configurationContextService);
     }
 
     /**
      * Method to unset registry service.
      *
-     * @param registryService service to get registry data.
+     * @param configurationContextService service to get registry data.
      */
-    protected void unsetRegistryService(RegistryService registryService) {
+    protected void unsetconfigurationContextService(ConfigurationContextService configurationContextService) {
         if (log.isDebugEnabled()) {
             log.debug("********Unset Registry service********");
         }
-        ServiceHolder.setRegistryService(null);
+        ServiceHolder.setConfigurationContextService(null);
     }
 
     /**

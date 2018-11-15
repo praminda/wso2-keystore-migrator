@@ -15,38 +15,21 @@
  */
 package org.wso2.carbon.keystore.migrate.client.internal;
 
-import org.wso2.carbon.registry.core.service.RegistryService;
 import org.wso2.carbon.registry.core.service.TenantRegistryLoader;
 import org.wso2.carbon.user.core.service.RealmService;
+import org.wso2.carbon.utils.ConfigurationContextService;
 
 @SuppressWarnings("unused")
 public class ServiceHolder {
-    //Registry Service which is used to get registry data.
-    private static RegistryService registryService;
+
+    //Configuration Context Service Service which is used to get configuration registry data.
+    private static ConfigurationContextService configurationContextService;
 
     //Realm Service which is used to get tenant data.
     private static RealmService realmService;
 
     //Tenant registry loader which is used to load tenant registry
     private static TenantRegistryLoader tenantRegLoader;
-
-    /**
-     * Method to get RegistryService.
-     *
-     * @return registryService.
-     */
-    public static RegistryService getRegistryService() {
-        return registryService;
-    }
-
-    /**
-     * Method to set registry RegistryService.
-     *
-     * @param service registryService.
-     */
-    public static void setRegistryService(RegistryService service) {
-        registryService = service;
-    }
 
     /**
      * This method used to get RealmService.
@@ -84,4 +67,11 @@ public class ServiceHolder {
         tenantRegLoader = service;
     }
 
+    public static ConfigurationContextService getConfigurationContextService() {
+        return configurationContextService;
+    }
+
+    public static void setConfigurationContextService(ConfigurationContextService configurationContextService) {
+        ServiceHolder.configurationContextService = configurationContextService;
+    }
 }
