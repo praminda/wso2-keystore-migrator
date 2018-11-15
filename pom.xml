@@ -6,7 +6,7 @@
 
     <groupId>org.wso2.carbon</groupId>
     <artifactId>org.wso2.carbon.keystore.migrate.client</artifactId>
-    <version>1.0.0</version>
+    <version>4.4.11</version>
     <packaging>bundle</packaging>
 
     <repositories>
